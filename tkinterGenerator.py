@@ -1,17 +1,19 @@
 import tkinter as tk
 from tkinter import Tk
 
-
+# region Initialize Window
 mainWin: Tk = tk.Tk()
 mainWin.title("TkinterGenerator")
 mainWin.minsize(600, 500)
 mainWin.resizable(True, True)
+#endregion
 
-
+# region Toggle Check and Radio
 showCheck = 0
 showRadio = 0
 checkButtonGen = tk.Frame(mainWin)
 radioButtonGen = tk.Frame(mainWin)
+
 
 
 def toggleCheck(state):
@@ -30,12 +32,137 @@ def toggleRadio(state):
     elif showRadio == 1 and (state == 0 or state == 2):
         showRadio = 0
         radioButtonGen.pack_forget()
+# endregion
 
 
+
+
+
+class theChecks():
+    allCheckVars = {"windowname": "[Insert Window Here]",
+                    "background": "white",
+                    "activebackground": "white",
+                    "foreground": "black",
+                    "activeforeground": "black",
+                    "disabledforeground": "black",
+                    "selectcolor": "white",
+                    "width": None,
+                    "height": None,
+                    "padx": 1,
+                    "pady": 1,
+                    "borderwidth": 2,
+                    "cursor": "arrow",
+                    "offvalue": 0,
+                    "onvalue": 1,
+                    "indicatoron": True,
+                    "textortextvar": "text",
+                    "text": "",
+                    "textvar": None}
+    tkinterName = "tkinter"
+    def resetCheckVars(self):
+        self.allCheckVars = {"windowname": "[Insert Window Here]",
+                        "background": "white",
+                        "activebackground": "white",
+                        "foreground": "black",
+                        "activeforeground": "black",
+                        "disabledforeground": "black",
+                        "selectcolor": "white",
+                        "width": None,
+                        "height": None,
+                        "padx": 1,
+                        "pady": 1,
+                        "borderwidth": 2,
+                        "cursor": "arrow",
+                        "offvalue": 0,
+                        "onvalue": 1,
+                        "indicatoron": True,
+                        "textortextvar": "text",
+                        "text": "",
+                        "textvar": None}
+    checkButtonCode = ""
+    allChecks = []
+    def newCheck(self):
+        global allCheckVars
+        if self.allCheckVars["textortextvar"] == "text":
+            self.allChecks.append(tk.Checkbutton(mainWin,
+                                                 background=self.allCheckVars["background"],
+                                                 activebackground=self.allCheckVars["activebackground"],
+                                                 foreground=self.allCheckVars["activeforeground"],
+                                                 activeforeground=self.allCheckVars["activeforeground"],
+                                                 disabledforeground=self.allCheckVars["disabledforeground"],
+                                                 selectcolor=self.allCheckVars["selectcolor"],
+                                                 width=self.allCheckVars["width"],
+                                                 height=self.allCheckVars["height"],
+                                                 padx=self.allCheckVars["padx"],
+                                                 pady=self.allCheckVars["pady"],
+                                                 borderwidth=self.allCheckVars["borderwidth"],
+                                                 cursor=self.allCheckVars["cursor"],
+                                                 offvalue=self.allCheckVars["offvalue"],
+                                                 onvalue=self.allCheckVars["onvalue"],
+                                                 indicatoron=self.allCheckVars["indicatoron"],
+                                                 text=self.allCheckVars["text"]))
+            self.checkButtonCode.append(
+                f"{self.tkinterName}.Checkbutton({self.allCheckVars['windowname']}," +
+                f"background={self.allCheckVars['background']}," +
+                f"activebackground={self.allCheckVars['activebackground']}," +
+                f"foreground={self.allCheckVars['foreground']}," +
+                f"activeforeground={self.allCheckVars['activeforeground']}," +
+                f"disabledforeground={self.allCheckVars['disabledforeground']}," +
+                f"selectvolor={self.allCheckVars['selectcolor']}," +
+                f"width={self.allCheckVars['width']},height={self.allCheckVars['height']}," +
+                f"padx={self.allCheckVars['padx']},pady={self.allCheckVars['pady']}," +
+                f"borderwidth={self.allCheckVars['borderwidth']}," +
+                f"cursor={self.allCheckVars['cursor']},offvalue={self.allCheckVars['offvalue']}," +
+                f"onvalue={self.allCheckVars['onvalue']}," +
+                f"indicatoron={self.allCheckVars['indicatoron']},textvar={self.allCheckVars['textvar']})")
+        elif self.allCheckVars["textortextvar"] == "textvar":
+            self.allChecks.append(tk.Checkbutton(mainWin,
+                                                 background=self.allCheckVars["background"],
+                                                 activebackground=self.allCheckVars["activebackground"],
+                                                 foreground=self.allCheckVars["activeforeground"],
+                                                 activeforeground=self.allCheckVars["activeforeground"],
+                                                 disabledforeground=self.allCheckVars["disabledforeground"],
+                                                 selectvolor=self.allCheckVars["selectcolor"],
+                                                 width=self.allCheckVars["width"],
+                                                 height=self.allCheckVars["height"],
+                                                 padx=self.allCheckVars["padx"],
+                                                 pady=self.allCheckVars["pady"],
+                                                 borderwidth=self.allCheckVars["borderwidth"],
+                                                 cursor=self.allCheckVars["cursor"],
+                                                 offvalue=self.allCheckVars["offvalue"],
+                                                 onvalue=self.allCheckVars["onvalue"],
+                                                 indicatoron=self.allCheckVars["indicatoron"],
+                                                 textvar=self.allCheckVars["textvar"]))
+            self.checkButtonCode.append(
+                f"{self.tkinterName}.Checkbutton({self.allCheckVars['windowname']},"+
+                f"background={self.allCheckVars['background']}," +
+                f"activebackground={self.allCheckVars['activebackground']},"+
+                f"foreground={self.allCheckVars['foreground']}," +
+                f"activeforeground={self.allCheckVars['activeforeground']},"+
+                f"disabledforeground={self.allCheckVars['disabledforeground']}," +
+                f"selectvolor={self.allCheckVars['selectcolor']},"+
+                f"width={self.allCheckVars['width']},height={self.allCheckVars['height']}," +
+                f"padx={self.allCheckVars['padx']},pady={self.allCheckVars['pady']},"+
+                f"borderwidth={self.allCheckVars['borderwidth']}," +
+                f"cursor={self.allCheckVars['cursor']},offvalue={self.allCheckVars['offvalue']},"+
+                f"onvalue={self.allCheckVars['onvalue']}," +
+                f"indicatoron={self.allCheckVars['indicatoron']},textvar={self.allCheckVars['textvar']})")
+    #def previewButton(self):
+    #def fullPreview(self):
+
+# region Creates the Widgets
+# region The main screen
 theTitle = tk.Label(mainWin, text="TkinterGenerator", font=("Courier", 44))
 theSubTitle = tk.Label(mainWin, text="By Djaro Donk", font=("Courier", 20))
 goToCheckButton = tk.Button(mainWin, text="Create CheckButton", font=("Verdana", 20), command=lambda: toggleCheck(2))
 goToRadioButton = tk.Button(mainWin, text="Create RadioButton", font=("Verdana", 20), command=lambda: toggleRadio(2))
+# endregion
+# region The CheckBox Widgets
+
+# endregion
+#endregion
+
+# region Packs the Widgets
 theTitle.pack()
 theSubTitle.pack()
 goToCheckButton.pack()
@@ -43,3 +170,4 @@ goToRadioButton.pack()
 tk.Label(checkButtonGen, text="My check text").pack()
 tk.Label(radioButtonGen, text="My radio text").pack()
 mainWin.mainloop()
+# endregion.
