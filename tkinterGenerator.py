@@ -1,11 +1,16 @@
+def log(text):
+    print(text)
+log("created log function")
+
 import tkinter as tk
-from tkinter import Tk
+log("imported tkinter as tk")
 
 # region Initialize Window
-mainWin: Tk = tk.Tk()
+mainWin: tk.Tk = tk.Tk()
 mainWin.title("TkinterGenerator")
 mainWin.minsize(600, 500)
 mainWin.resizable(True, True)
+log("Initialized The window")
 #endregion
 
 # region Toggle Check and Radio
@@ -20,21 +25,27 @@ def toggleCheck(state):
     if showCheck == 0 and (state == 1 or state == 2):
         showCheck = 1
         checkButtonGen.pack()
+        log("Toggled the CheckBoxGenerator on")
     elif showCheck == 1 and (state == 0 or state == 2):
         showCheck = 0
         checkButtonGen.pack_forget()
+        log("Toggled the CheckBoxGenerator off")
 def toggleRadio(state):
     global showRadio
     if showRadio == 0 and (state == 1 or state == 2):
         showRadio = 1
         radioButtonGen.pack()
+        log("Toggled the RadioBoxGenerator on")
     elif showRadio == 1 and (state == 0 or state == 2):
         showRadio = 0
         radioButtonGen.pack_forget()
+        log("Toggled the RadioBoxGenerator off")
 # endregion
 
 
 previewCheck = tk.Frame(checkButtonGen)
+log("created the previewCheck Frame")
+
 
 buttonPreviewCheck = tk.Checkbutton()
 buttonPreviewCheck.pack_forget()
@@ -151,6 +162,7 @@ class theChecks():
         global buttonPreviewCheck
         buttonPreviewCheck.pack()
         buttonPreviewCheck.pack_forget()
+        log("removed the previous preview")
         buttonPreviewCheck = tk.Checkbutton(previewCheck,
                            background=self.allCheckVars["background"],
                            activebackground=self.allCheckVars["activebackground"],
@@ -172,6 +184,7 @@ class theChecks():
         else:
             buttonPreviewCheck["textvar"] = self.allCheckVars["textvar"]
         buttonPreviewCheck.pack()
+        log("Succesfully made a preview")
     # region Old script for a single preview, doesnt work. Don't know why not!!
     # def previewCheckButton(self):
     #     global buttonPreviewCheck
@@ -224,6 +237,7 @@ class theChecks():
             previewCheck.pack()
 
 allTheChecks = theChecks()
+log("Created the CheckBox object")
 
 def previewCheckFunc(object):
     object.allCheckVars["text"] = checkButtonGenText.get("1.0", "end")
@@ -231,20 +245,19 @@ def previewCheckFunc(object):
 
 
 # region Creates the Widgets
-# region The main screen
 theTitle = tk.Label(mainWin, text="TkinterGenerator", font=("Courier", 44))
 theSubTitle = tk.Label(mainWin, text="By Djaro Donk", font=("Courier", 20))
 goToCheckButton = tk.Button(mainWin, text="Create CheckButton", font=("Verdana", 20), command=lambda: toggleCheck(2))
 goToRadioButton = tk.Button(mainWin, text="Create RadioButton", font=("Verdana", 20), command=lambda: toggleRadio(2))
 checkButtonGenText= tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
 checkButtonGenText.insert("insert","Your Text Here")
+checkButtonGenWindow = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
+checkButtonGenWindow.insert("insert","The name of the frame/window here")
+
+
 checkButtonpreviewCheck = tk.Button(checkButtonGen,text="Create previewCheck",
                                     command=lambda: previewCheckFunc(allTheChecks))
 
-# endregion
-# region The CheckBox Widgets
-
-# endregion
 #endregion
 
 # region Packs the Widgets
@@ -255,6 +268,7 @@ goToRadioButton.pack()
 checkButtonpreviewCheck.pack()
 tk.Label(radioButtonGen, text="My radio text").pack()
 checkButtonGenText.pack()
+checkButtonGenWindow.pack()
 previewCheck.pack_forget()
 previewCheck.pack()
 mainWin.mainloop()
