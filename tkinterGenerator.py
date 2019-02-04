@@ -35,9 +35,9 @@ def toggleRadio(state):
 
 
 previewCheck = tk.Frame(checkButtonGen)
-previewCheck.pack_forget()
 
 buttonPreviewCheck = tk.Checkbutton()
+buttonPreviewCheck.pack_forget()
 class theChecks():
     allCheckVars = {"windowname": "[Insert Window Here]",
                     "background": "white",
@@ -148,11 +148,10 @@ class theChecks():
                 f"onvalue={self.allCheckVars['onvalue']}," +
                 f"indicatoron={self.allCheckVars['indicatoron']},textvar={self.allCheckVars['textvar']})")
     def previewCheckButton(self):
-        global previewCheck
         global buttonPreviewCheck
+        buttonPreviewCheck.pack()
         buttonPreviewCheck.pack_forget()
-        if self.allCheckVars["textortextvar"] == "text":
-            buttonpreviewCheck = tk.Checkbutton(previewCheck,
+        buttonPreviewCheck = tk.Checkbutton(previewCheck,
                            background=self.allCheckVars["background"],
                            activebackground=self.allCheckVars["activebackground"],
                            foreground=self.allCheckVars["activeforeground"],
@@ -167,32 +166,56 @@ class theChecks():
                            cursor=self.allCheckVars["cursor"],
                            offvalue=self.allCheckVars["offvalue"],
                            onvalue=self.allCheckVars["onvalue"],
-                           indicatoron=self.allCheckVars["indicatoron"],
-                           text=self.allCheckVars["text"])
-            previewCheck.pack()
-            buttonpreviewCheck.pack(anchor="center")
-            previewCheck.pack()
-        elif self.allCheckVars["textortextvar"] == "textvar":
-            buttonpreviewCheck = tk.Checkbutton(previewCheck,
-                           background=self.allCheckVars["background"],
-                           activebackground=self.allCheckVars["activebackground"],
-                           foreground=self.allCheckVars["activeforeground"],
-                           activeforeground=self.allCheckVars["activeforeground"],
-                           disabledforeground=self.allCheckVars["disabledforeground"],
-                           selectvolor=self.allCheckVars["selectcolor"],
-                           width=self.allCheckVars["width"],
-                           height=self.allCheckVars["height"],
-                           padx=self.allCheckVars["padx"],
-                           pady=self.allCheckVars["pady"],
-                           borderwidth=self.allCheckVars["borderwidth"],
-                           cursor=self.allCheckVars["cursor"],
-                           offvalue=self.allCheckVars["offvalue"],
-                           onvalue=self.allCheckVars["onvalue"],
-                           indicatoron=self.allCheckVars["indicatoron"],
-                           textvar=self.allCheckVars["textvar"])
-            previewCheck.pack_forget()
-            buttonpreviewCheck.pack(anchor="center")
-            previewCheck.pack()
+                           indicatoron=self.allCheckVars["indicatoron"])
+        if self.allCheckVars["textortextvar"] == "text":
+            buttonPreviewCheck["text"] = self.allCheckVars["text"][:-1]
+        else:
+            buttonPreviewCheck["textvar"] = self.allCheckVars["textvar"]
+        buttonPreviewCheck.pack()
+    # region Old script for a single preview, doesnt work. Don't know why not!!
+    # def previewCheckButton(self):
+    #     global buttonPreviewCheck
+    #     buttonPreviewCheck.pack()
+    #     buttonPreviewCheck.pack_forget()
+    #     if self.allCheckVars["textortextvar"] == "text":
+    #         buttonpreviewCheck = tk.Checkbutton(previewCheck,
+    #                        background=self.allCheckVars["background"],
+    #                        activebackground=self.allCheckVars["activebackground"],
+    #                        foreground=self.allCheckVars["activeforeground"],
+    #                        activeforeground=self.allCheckVars["activeforeground"],
+    #                        disabledforeground=self.allCheckVars["disabledforeground"],
+    #                        selectcolor=self.allCheckVars["selectcolor"],
+    #                        width=self.allCheckVars["width"],
+    #                        height=self.allCheckVars["height"],
+    #                        padx=self.allCheckVars["padx"],
+    #                        pady=self.allCheckVars["pady"],
+    #                        borderwidth=self.allCheckVars["borderwidth"],
+    #                        cursor=self.allCheckVars["cursor"],
+    #                        offvalue=self.allCheckVars["offvalue"],
+    #                        onvalue=self.allCheckVars["onvalue"],
+    #                        indicatoron=self.allCheckVars["indicatoron"],
+    #                        text=self.allCheckVars["text"][:-1])
+    #         buttonpreviewCheck.pack(anchor="center")
+    #     elif self.allCheckVars["textortextvar"] == "textvar":
+    #         buttonpreviewCheck = tk.Checkbutton(previewCheck,
+    #                        background=self.allCheckVars["background"],
+    #                        activebackground=self.allCheckVars["activebackground"],
+    #                        foreground=self.allCheckVars["activeforeground"],
+    #                        activeforeground=self.allCheckVars["activeforeground"],
+    #                        disabledforeground=self.allCheckVars["disabledforeground"],
+    #                        selectvolor=self.allCheckVars["selectcolor"],
+    #                        width=self.allCheckVars["width"],
+    #                        height=self.allCheckVars["height"],
+    #                        padx=self.allCheckVars["padx"],
+    #                        pady=self.allCheckVars["pady"],
+    #                        borderwidth=self.allCheckVars["borderwidth"],
+    #                        cursor=self.allCheckVars["cursor"],
+    #                        offvalue=self.allCheckVars["offvalue"],
+    #                        onvalue=self.allCheckVars["onvalue"],
+    #                        indicatoron=self.allCheckVars["indicatoron"],
+    #                        textvar=self.allCheckVars["textvar"])
+    #         buttonpreviewCheck.pack(anchor="center")
+    # endregion
     def fullPreviewCheck(self):
         for i in self.allChecks:
             previewCheck.pack_forget()
@@ -203,9 +226,7 @@ class theChecks():
 allTheChecks = theChecks()
 
 def previewCheckFunc(object):
-    global buttonPreviewCheck
-    buttonPreviewCheck.pack_forget()
-    object.allCheckVars["text"] = checkButtonGenText.get("1.0","end")
+    object.allCheckVars["text"] = checkButtonGenText.get("1.0", "end")
     object.previewCheckButton()
 
 
@@ -218,7 +239,7 @@ goToRadioButton = tk.Button(mainWin, text="Create RadioButton", font=("Verdana",
 checkButtonGenText= tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
 checkButtonGenText.insert("insert","Your Text Here")
 checkButtonpreviewCheck = tk.Button(checkButtonGen,text="Create previewCheck",
-                                    command=lambda:previewCheckFunc(allTheChecks))
+                                    command=lambda: previewCheckFunc(allTheChecks))
 
 # endregion
 # region The CheckBox Widgets
