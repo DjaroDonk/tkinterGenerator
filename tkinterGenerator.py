@@ -167,8 +167,6 @@ class theChecks():
         temp_0 = 0
         temp_1 = 0
         buttonPreviewCheck = tk.Checkbutton(previewCheck,
-                           foreground=self.allCheckVars["activeforeground"],
-                           activeforeground=self.allCheckVars["activeforeground"],
                            disabledforeground=self.allCheckVars["disabledforeground"],
                            selectcolor=self.allCheckVars["selectcolor"],
                            width=self.allCheckVars["width"],
@@ -194,6 +192,16 @@ class theChecks():
         except tk.TclError:
             log("!!!   Couldn't find activebackground color. Used default (White) instead")
             buttonPreviewCheck.config(activebackground="white")
+        try:
+            buttonPreviewCheck.config(foreground= self.allCheckVars["foreground"][:-1])
+        except tk.TclError:
+            log("!!!   Couldn't find foreground color. Used default (Black) instead")
+            buttonPreviewCheck.config(foreground="black")
+        try:
+            buttonPreviewCheck.config(activeforeground= self.allCheckVars["activeforeground"][:-1])
+        except tk.TclError:
+            log("!!!   Couldn't find activeforeground color. Used default (Black) instead")
+            buttonPreviewCheck.config(activeforeground="black")
 
         buttonPreviewCheck.pack()
         log("Succesfully made a preview")
@@ -256,6 +264,8 @@ def previewCheckFunc(object):
     object.allCheckVars["windowname"] = checkButtonGenWindow.get("1.0","end")
     object.allCheckVars["background"] = checkButtonGenBackground.get("1.0", "end")
     object.allCheckVars["activebackground"] = checkButtonGenActiveBackground.get("1.0", "end")
+    object.allCheckVars["foreground"] = checkButtonGenForeground.get("1.0", "end")
+    object.allCheckVars["activeforeground"] = checkButtonGenActiveForeground.get("1.0", "end")
     object.previewCheckButton()
     object.resetCheckVars()
 
@@ -270,9 +280,13 @@ checkButtonGenText.insert("insert","Your Text Here")
 checkButtonGenWindow = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
 checkButtonGenWindow.insert("insert","The name of the frame/window here")
 checkButtonGenBackground = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
-checkButtonGenBackground.insert("insert","The name of the background color here")
+checkButtonGenBackground.insert("insert","The name of the background colour here")
 checkButtonGenActiveBackground = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
-checkButtonGenActiveBackground.insert("insert","The name of the active background color here")
+checkButtonGenActiveBackground.insert("insert","The name of the active background colour here")
+checkButtonGenForeground = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
+checkButtonGenForeground.insert("insert","The name of the foreground colour here")
+checkButtonGenActiveForeground = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
+checkButtonGenActiveForeground.insert("insert","The name of the active foreground colour here")
 
 
 checkButtonpreviewCheck = tk.Button(checkButtonGen,text="Create previewCheck",
@@ -283,7 +297,7 @@ checkButtonpreviewCheck = tk.Button(checkButtonGen,text="Create previewCheck",
 # region Packs the Widgets
 theTitle.pack()
 theSubTitle.pack()
-tk.Label(mainWin, text="use all_colors.py to see all available colors").pack()
+tk.Label(mainWin, text="use all_colors.py to see all available colours").pack()
 goToCheckButton.pack()
 goToRadioButton.pack()
 checkButtonpreviewCheck.pack()
@@ -292,6 +306,8 @@ checkButtonGenText.pack()
 checkButtonGenWindow.pack()
 checkButtonGenBackground.pack()
 checkButtonGenActiveBackground.pack()
+checkButtonGenForeground.pack()
+checkButtonGenActiveForeground.pack()
 previewCheck.pack_forget()
 previewCheck.pack()
 mainWin.mainloop()
