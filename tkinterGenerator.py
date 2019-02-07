@@ -167,7 +167,6 @@ class theChecks():
         temp_0 = 0
         temp_1 = 0
         buttonPreviewCheck = tk.Checkbutton(previewCheck,
-                           disabledforeground=self.allCheckVars["disabledforeground"],
                            selectcolor=self.allCheckVars["selectcolor"],
                            width=self.allCheckVars["width"],
                            height=self.allCheckVars["height"],
@@ -186,7 +185,7 @@ class theChecks():
             buttonPreviewCheck.config(background = self.allCheckVars["background"][:-1])
         except tk.TclError:
             log("!!!   Couldn't find background color. Used default (White) instead")
-            buttonPreviewCheck.config(activebackground="white")
+            buttonPreviewCheck.config(background="white")
         try:
             buttonPreviewCheck.config(activebackground=self.allCheckVars["activebackground"][:-1])
         except tk.TclError:
@@ -202,6 +201,11 @@ class theChecks():
         except tk.TclError:
             log("!!!   Couldn't find activeforeground color. Used default (Black) instead")
             buttonPreviewCheck.config(activeforeground="black")
+        try:
+            buttonPreviewCheck.config(disabledforeground= self.allCheckVars["disabledforeground"][:-1])
+        except tk.TclError:
+            log("!!!   Couldn't find disabled foreground color. Used default (gray40) instead")
+            buttonPreviewCheck.config(disabledforeground="gray40")
 
         buttonPreviewCheck.pack()
         log("Succesfully made a preview")
@@ -266,8 +270,16 @@ def previewCheckFunc(object):
     object.allCheckVars["activebackground"] = checkButtonGenActiveBackground.get("1.0", "end")
     object.allCheckVars["foreground"] = checkButtonGenForeground.get("1.0", "end")
     object.allCheckVars["activeforeground"] = checkButtonGenActiveForeground.get("1.0", "end")
+    object.allCheckVars["disabledforeground"] = checkButtonGenDisabledForeground.get("1.0", "end")
     object.previewCheckButton()
     object.resetCheckVars()
+
+def disableCheck(object):
+    global buttonPreviewCheck
+    if buttonPreviewCheck["state"] == "normal":
+        buttonPreviewCheck.config(state="disabled")
+    else:
+        buttonPreviewCheck.config(state="normal")
 
 
 # region Creates the Widgets
@@ -287,6 +299,8 @@ checkButtonGenForeground = tk.Text(checkButtonGen,font=("Arial",11),width=40,hei
 checkButtonGenForeground.insert("insert","The name of the foreground colour here")
 checkButtonGenActiveForeground = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
 checkButtonGenActiveForeground.insert("insert","The name of the active foreground colour here")
+checkButtonGenDisabledForeground = tk.Text(checkButtonGen,font=("Arial",11),width=40,height=1)
+checkButtonGenDisabledForeground.insert("insert","The name of the disabled foreground colour here")
 
 
 checkButtonpreviewCheck = tk.Button(checkButtonGen,text="Create previewCheck",
@@ -301,6 +315,7 @@ tk.Label(mainWin, text="use all_colors.py to see all available colours").pack()
 goToCheckButton.pack()
 goToRadioButton.pack()
 checkButtonpreviewCheck.pack()
+tk.Button(checkButtonGen, text="Disable/enable preview button", command=lambda:disableCheck(allTheChecks)).pack()
 tk.Label(radioButtonGen, text="My radio text").pack()
 checkButtonGenText.pack()
 checkButtonGenWindow.pack()
@@ -308,6 +323,7 @@ checkButtonGenBackground.pack()
 checkButtonGenActiveBackground.pack()
 checkButtonGenForeground.pack()
 checkButtonGenActiveForeground.pack()
+checkButtonGenDisabledForeground.pack()
 previewCheck.pack_forget()
 previewCheck.pack()
 mainWin.mainloop()
